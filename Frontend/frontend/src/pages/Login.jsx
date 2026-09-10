@@ -26,8 +26,8 @@ function Login() {
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`,form)
       toast.success(res.data.message)
-      dispatch(login())
-      // localStorage.setItem("user",res.data.user.token)
+      dispatch(login(res.data.user))
+      // localStorage.setItem("user",JSON.stringify(res.data.user))
       navigator("/")
     } catch (error) {
       toast.error(error.response.data.message)

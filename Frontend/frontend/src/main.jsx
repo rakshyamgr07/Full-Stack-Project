@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import {Toaster} from 'react-hot-toast';
 import { API } from './utils/api.js'
 createRoot(document.getElementById('root')).render(
+  <StrictMode>
   <Provider store={API}>
   <BrowserRouter>
     <App />
@@ -16,5 +17,6 @@ createRoot(document.getElementById('root')).render(
   reverseOrder={false}
 />
   </BrowserRouter>
-  </Provider>
+ </Provider>
+ </StrictMode>
 )
