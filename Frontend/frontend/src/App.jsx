@@ -10,6 +10,7 @@ import LayOut from './LayOut'
 import VerifyUser from './pages/VerifyUser'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from './utils/userSlice'
+import SearchPost from './pages/SearchPost'
 
 function App() {
   const dispatch = useDispatch()
@@ -28,15 +29,16 @@ function App() {
 
         <Route element={<LayOut />}>
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchPost/>}/>
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/verify-email/:verificationToken" element={<VerifyUser />} />
 
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-email/:verificationToken" element={<VerifyUser />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       </Routes>

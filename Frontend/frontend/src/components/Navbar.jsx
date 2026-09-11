@@ -17,10 +17,8 @@ function Navbar() {
   }
   useEffect(() => {
     if (window.location.pathname !== "/search") {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSearchQuery(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname, setSearchQuery]);
 
   return (
