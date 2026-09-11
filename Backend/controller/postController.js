@@ -78,7 +78,7 @@ async function getPostById(req, res) {
         console.log(id)
         const creator = req.user
         console.log(creator)
-        const post = await Post.findOne({ postId: id })
+        const post = await Post.findOne({ postId: id }).populate("name email")
         if (!post) {
             return res.status(200).json({
                 success: false,

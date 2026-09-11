@@ -11,6 +11,9 @@ import VerifyUser from './pages/VerifyUser'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from './utils/userSlice'
 import SearchPost from './pages/SearchPost'
+import CreatePost from './pages/CreatePost'
+import PostPage from './pages/PostPage'
+
 
 function App() {
   const dispatch = useDispatch()
@@ -29,6 +32,8 @@ function App() {
 
         <Route element={<LayOut />}>
           <Route path="/" element={<Home />} />
+          <Route path="/postId" element={<PostPage/>} />
+          <Route path="/add-post" element={<CreatePost/>}/>
           <Route path="/search" element={<SearchPost/>}/>
         </Route>
 

@@ -10,17 +10,17 @@ function usePagination(path, queryParams = {}, limit, page) {
   useEffect(() =>
     async function fetchSearchPost() {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/${path}`, {params:{...queryParams,limit,page}})
-        
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/${path}`, { params: { ...queryParams, limit, page } })
+
         //needed old post + new post
-        setPosts((prev)=>page==1?res.data.posts:[...prev,...res.data.posts])
+        setPosts((prev) => page == 1 ? res.data.posts : [...prev, ...res.data.posts])
         setHasMore(res.data.hasMore)
         setTotalPost(res.data.totalPost)
         toast.success(res.data.message)
       } catch (error) {
         toast.error(error.response.data.message)
       }
-      
+
     },
     [path, queryParams.search, limit, page]
   )

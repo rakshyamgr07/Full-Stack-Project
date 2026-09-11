@@ -8,7 +8,7 @@ const SearchPost = () => {
      const [page, setPage] = useState(1)
      const [searchParams] = useSearchParams()
      const search = searchParams.get("q")
-     const { posts, hasMore, totalPost } = usePagination("post/search-post", { search }, 1, page)
+     const { posts, hasMore, totalPost } = usePagination("post/search-post", { search }, 2, page)
      return (
           <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10">
                <div className="mb-3 flex items-center">
