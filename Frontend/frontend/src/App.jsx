@@ -1,55 +1,48 @@
-import  { useEffect } from 'react'
-import Home from './pages/Home'
-import { Route, Routes } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
+import { Routes, Route } from 'react-router-dom'
+import './App.css'
+import LayOut from './LayOut'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Home from './pages/Home'
+import VerifyUser from './pages/VerifyUser'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
-import LayOut from './LayOut'
-import VerifyUser from './pages/VerifyUser'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import { logout } from './utils/userSlice'
-import SearchPost from './pages/SearchPost'
-import CreatePost from './pages/CreatePost'
 import PostPage from './pages/PostPage'
-
+import AddPost from './pages/AddPost'
+import SearchPost from './pages/SearchPost'
 
 function App() {
   const dispatch = useDispatch()
-  const { token } = useSelector((state) => state.user)
+  const { token } = useSelector((state) => state.user);
   useEffect(() => {
     if (!token) return
     const pay = JSON.parse(atob(token.split(".")[1]))
-    if(pay.exp*100<Date.now()){
+    if (pay.exp * 1000 < Date.now()) {
       dispatch(logout())
     }
-
-  }, [token,dispatch])
+  }, [token, dispatch])
   return (
-    <div>
+    <>
       <Routes>
 
-        <Route element={<LayOut />}>
+        <Route element={<LayOut/>}>
           <Route path="/" element={<Home />} />
-          <Route path="/postId" element={<PostPage/>} />
-          <Route path="/add-post" element={<CreatePost/>}/>
-          <Route path="/search" element={<SearchPost/>}/>
+          <Route path="/post/:postId" element={<PostPage />} />
+          <Route path="/search" element={<SearchPost />} />
+          <Route path="/add-post" element={<AddPost />} />
+          <Route path="/edit-post/:postId" element={<AddPost />} />
         </Route>
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
-
-
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-email/:verificationToken" element={<VerifyUser />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/reset-email/:token" element={<ResetPassword />} />
 
       </Routes>
-
-      <ToastContainer />
-    </div>
+    </>
   )
 }
 

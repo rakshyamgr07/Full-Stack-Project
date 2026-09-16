@@ -7,7 +7,7 @@ import Button from '../components/Button'
 
 function ResetPassword() {
   const { token } = useParams()
-  const navigator = useNavigate()
+  const navigate= useNavigate()
   const [form, setForm] = useState({
     password: "",
     cpassword: ""
@@ -27,7 +27,7 @@ function ResetPassword() {
         { newPassword: form.password }
       )
       toast.success(res.data.message)
-      navigator("/login")
+      navigate("/login")
     } catch (error) {
       toast.error(
         error.response?.data?.message

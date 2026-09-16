@@ -6,7 +6,7 @@ import axios from 'axios'
 import Button from '../components/Button'
 
 function Register() {
-  const navigator = useNavigate()
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -26,7 +26,7 @@ function Register() {
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/user`,form)
       toast.success(res.data.message)
-      navigator("/login")
+      navigate("/login")
     } catch (error) {
       toast.error(error.response.data.message)
     }

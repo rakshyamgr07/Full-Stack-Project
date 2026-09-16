@@ -13,7 +13,7 @@ function Login() {
     email: "",
     password: ""
   })
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false)
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -24,15 +24,16 @@ function Login() {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`,form)
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`, form)
+      console.log("FULL LOGIN RESPONSE:", res.data);
+      console.log("USER:", res.data.user);
       toast.success(res.data.message)
       dispatch(login(res.data.user))
-      // localStorage.setItem("user",JSON.stringify(res.data.user))
       navigator("/")
     } catch (error) {
       toast.error(error.response.data.message)
     }
-    finally{
+    finally {
       setLoading(false)
     }
   }
@@ -59,35 +60,33 @@ function Login() {
             <div className="flex flex-col gap-2">
               <label htmlFor="email" className='font-semibold'>Email</label>
 
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="example@example.com"
-              value={form.email}
-              onChange={handleChange}
-              className="border border-gray-900 rounded-sm  p-2 text-gray-700"
-            />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="example@example.com"
+                onChange={handleChange}
+                className="border border-gray-900 rounded-sm  p-2 text-gray-700"
+              />
             </div>
 
             <div className="flex flex-col gap-2">
               <label htmlFor="password" className='font-semibold'>Password</label>
 
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              className="border border-gray-900 rounded-sm text-gray-700 p-2"
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                onChange={handleChange}
+                className="border border-gray-900 rounded-sm text-gray-700 p-2"
 
-            />
-            <a href="/forgot-password" className=" text-sm hover:text-blue-800  hover:underline hover:decoration-solid">Forgot password?</a>
+              />
+              <a href="/forgot-password" className=" text-sm hover:text-blue-800  hover:underline hover:decoration-solid">Forgot password?</a>
             </div>
 
-          <Button type="submit" loading={loading}>Login</Button>
-           
+            <Button type="submit" loading={loading}>Login</Button>
+
             <p className="text-center flex justify-center gap-1">Don't have an account?
               <a href="/register" className="hover:text-blue-800  hover:underline hover:decoration-solid">Sign Up</a>
             </p>
@@ -100,4 +99,3 @@ function Login() {
 }
 
 export default Login;
-//account delete rw logout

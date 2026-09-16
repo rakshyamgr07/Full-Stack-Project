@@ -4,23 +4,48 @@ import { MdEditNote, MdSearch, MdMenu, MdClose, MdAccountCircle, MdKeyboardArrow
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../utils/userSlice";
 function Navbar() {
-  const { token, name } = useSelector((state) => state.user)
+  const { token, name, id } = useSelector((state) => state.user)
+  console.log("Navbar user:", { token, name,id })
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   function handleLogout() {
     dispatch(logout())
     navigate("/login")
   }
+  async function handleDeleteUser() {
+    if (!window.confirm("Are you sure you want to delete your account?"))
+      return;
+    setLoading(true);
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      navigate("/login");
+      dispatch(logout());
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error("Failed to delete user:" + error.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  }
   useEffect(() => {
     if (window.location.pathname !== "/search") {
-      setSearchQuery(null);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSearchQuery("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname, setSearchQuery]);
-
   return (
     <nav className="relative w-full h-17.5 bg-white border-b shadow-sm px-5 md:px-8 flex items-center justify-between">
 
@@ -29,9 +54,7 @@ function Navbar() {
 
         {/* Logo */}
         <Link to="/" >
-          <span className="text-3xl font-semibold text-blue-600">
-            Logo
-          </span>
+          <img src="/logo.png" alt="logo" className="w-14 h-14 rounded-full object-cover"></img>
         </Link>
 
         {/* Search */}
@@ -106,6 +129,7 @@ function Navbar() {
                 <button
                   onClick={() => {
                     setIsAccountOpen(false);
+                    handleDeleteUser()
                     console.log(
                       "Delete Account"
                     );
@@ -196,8 +220,10 @@ function Navbar() {
 
               {/* Delete Account */}
               <button
-                onClick={() =>
+                onClick={() => {
                   setIsMenuOpen(false)
+                  handleDeleteUser()
+                }
                 }
                 className=" text-left px-3 py-3 rounded-lg text-red-500 hover:bg-red-50  ">
                 Delete Account

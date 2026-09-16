@@ -11,7 +11,7 @@ const Home = () => {
     <div className='w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10'>
        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cold-3 lg:grid-cols-4 gap-4'>
       {posts.map((item)=>(
-        <Card key={item.id} item={item}/>
+        <Card key={item._id} item={item}/>
       ))}
     </div>
     {/* //if we have more data then button occur otherwise not */}

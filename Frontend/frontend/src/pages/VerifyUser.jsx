@@ -5,13 +5,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const VerifyUser = () => {
     const {verificationToken} = useParams()
-    const navigator = useNavigate()
+    const navigate = useNavigate()
     useEffect(()=>{
         async function handleSubmit(e) {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/verify-email/${verificationToken}`)
       toast.success(res.data.message)
-      navigator("/login")
+      navigate("/login")
     } catch (error) {
       toast.error(error.response.data.message)
     }

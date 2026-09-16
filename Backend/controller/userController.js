@@ -8,13 +8,11 @@ const { sendVerificationEmail, sendResetPasswordEmail } = require("../utils/send
 
 async function getUser(req, res) {
     try {
-        const {id} = req.params
-        const user = await User.findById(id)
-        return res.status(200).json({
-            success: true,
-            message: "user fetch successfully",
-            totalPost,
-            user
+        const users = await User.find()
+          return res.status(200).json({
+               success: true,
+               message: "User fetch successfully",
+               users
         })
     } catch (error) {
         return errorHandler(res, error, "failed to fetched data")

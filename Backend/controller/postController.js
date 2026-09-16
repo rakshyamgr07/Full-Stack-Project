@@ -38,7 +38,7 @@ async function createPost(req, res) {
         const creator = req.user
         const image = req.file.path
         if (!title || !description || !creator) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "please insert the required fields"
             })
@@ -75,12 +75,20 @@ async function createPost(req, res) {
 async function getPostById(req, res) {
     try {
         const { id } = req.params
-        console.log(id)
+
+        console.log("ID received:", id);
         const creator = req.user
-        console.log(creator)
-        const post = await Post.findOne({ postId: id }).populate("name email")
+        // console.log(creator)
+        const post = await Post.findOne({ postId: id }).populate("creator","name email").populate({
+            path:"comments",
+            options:{sort:{createdAt:-1}},
+            populate:{
+                path:"user",
+                select:"name email"
+            }
+        })
         if (!post) {
-            return res.status(200).json({
+            return res.status(404).json({
                 success: false,
                 message: "post not found"
             })
@@ -161,12 +169,13 @@ async function updatePost(req, res) {
             draft: draft || post.draft,
 
         }
-        if (image) {
-            await deleteImage(post.imageId)
-            const { public_id, secure_url } = await uploadImage(image)
-            updateData.imageUrl = secure_url
-            updateData.imageId = public_id
-            fs.unlinkSync(image)
+        if (req.file) {
+            const image = req.file.path;
+               await deleteImage(post.imageId);
+               const { public_id, secure_url } = await uploadImage(image)
+               updateData.imageUrl = secure_url;
+               updateData.imageId = public_id;
+               fs.unlinkSync(image)
         }
 
         await Post.updateOne({ _id: id }, { $set: updateData })
