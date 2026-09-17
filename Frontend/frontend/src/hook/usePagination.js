@@ -21,7 +21,8 @@ function usePagination(path, queryParams = {}, limit, page) {
       } catch (error) {
         toast.error(error.response.data.message)
       }
-
+ fetchSearchPost()
+          // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [path, queryParams.search, limit, page]
   )
