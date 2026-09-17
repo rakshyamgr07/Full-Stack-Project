@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { commentLike, deleteComments, setComments, updateComments } from "../utils/postSlice";
 import { formatDate } from "../utils/formatDate";
+import { useNavigate } from "react-router-dom";
 
 const Comment = () => {
   const dispatch = useDispatch();
@@ -16,33 +17,50 @@ const Comment = () => {
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState("");
   const [editingComment, setEditingComment] = useState("");
+  const navigate = useNavigate()
   // Add Comment
   const handleComment = async () => {
-    if (!comment.trim()) return toast.error("Comment rrquired")
+    if (!comment.trim()) {
+      return toast.error("Comment required");
+    }
+
+    if (!token) {
+      return toast.error("Please sign in to comment");
+    }
+
     setLoading(true);
+
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/post/${_id}/comment`, { comment },
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/post/${_id}/comment`,
+        { comment },
         {
           headers: {
-            "Authorization": `Bearer ${token}`,
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
-      )
+      );
+      console.log("NEW COMMENT:", res.data.newComment);
       dispatch(setComments(res.data.newComment));
+
+      setComment("");
+          navigate(`/post/${_id}`);
+
       toast.success(res.data.message);
     } catch (err) {
-      toast.error(err.response.data.message);
-      console.log(err.response.data.message)
+      toast.error(
+        err.response?.data?.message || "Failed to add comment"
+      );
+      console.log(err.response?.data?.message);
     } finally {
       setLoading(false);
     }
   };
-
   // Delete Comment
   const handleDeleteComment = async (commentId) => {
     try {
       const res = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/post/${commentId}/comment`,
+        `${import.meta.env.VITE_API_URL}/post/${_id}/comment/${commentId}`,
         { headers: { Authorization: `Bearer ${token}` } },
       );
       toast.success(res?.data?.message);
@@ -55,7 +73,7 @@ const Comment = () => {
   // Like Comment
   const handleLikeComment = async (commentId) => {
     if (token) {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/post/${commentId}/comment-like`,
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/post/${_id}/comment/${commentId}`,
         {},
         {
           headers: {
@@ -72,7 +90,7 @@ const Comment = () => {
     if (!editingComment.trim()) return toast.error("Comment required");
 
     try {
-      const res = await axios.patch(`${import.meta.env.VITE_API_URL}/post/${commentId}/comment`,
+      const res = await axios.patch(`${import.meta.env.VITE_API_URL}/post/${_id}/comment/${commentId}`,
         { comment: editingComment },
         {
           headers: {
@@ -128,8 +146,8 @@ const Comment = () => {
 
             {/* Avatar */}
             <img
-              src={`https://api.dicebear.com/10.x/initials/svg?seed=${item.user.name}`}
-              alt={item.user?.name}
+              src={`https://api.dicebear.com/10.x/initials/svg?seed=${item.user?.name || "User"}`}
+              alt={item.user?.name || "User"}
               className="h-10 w-10 rounded-full"
             />
 

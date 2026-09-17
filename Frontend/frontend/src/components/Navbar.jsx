@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../utils/userSlice";
 function Navbar() {
   const { token, name, id } = useSelector((state) => state.user)
-  console.log("Navbar user:", { token, name,id })
+  console.log("Navbar user:", { token, name, id })
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -85,10 +85,14 @@ function Navbar() {
             setIsAccountOpen(!isAccountOpen)
           }
           className="  flex  items-center  gap-1  px-3  py-2  rounded-lg  hover:bg-gray-100   transition ">
-          <MdAccountCircle className="text-3xl text-blue-500" />
+          <img
+            src={`https://api.dicebear.com/10.x/initials/svg?seed=${name || "User"}`}
+            alt="Author"
+            className="h-10 w-10 rounded-full object-cover"
+          />
 
-          <span className="text-lg">
-            Account
+          <span className="text-lg capitalize">
+            {name || "user"}
           </span>
 
           <MdKeyboardArrowDown

@@ -31,12 +31,12 @@ async function commentPost(req, res) {
         }
 
         const newComment = await Comment.create({ comment, post: id, user: creator })
-        const data = await Post.findByIdAndUpdate(id, { $push: { comments: newComment._id } })
+       const data = await Post.findByIdAndUpdate(id, { $push: { comments: newComment._id } })
         const populateComment = await Comment.findById(newComment._id).populate("user","name email")
         return res.status(201).json({
             success: true,
             message: "Comment created successfully",
-            data
+            newComment :populateComment
         })
     } catch (error) {
         return errorHandler(res, error)

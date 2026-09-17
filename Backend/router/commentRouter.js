@@ -10,10 +10,3 @@ route.post("/:id/comment/:commentId", verifyUser, likeComment)
 
 
 module.exports = route
-//user following : user le aru lai liked garda : done
-//user followed : user lai aru ley like garda: done
-// api fetch garerw post sab react ma show garne 
-//comment ko lagi form rw list : done
-//like and unlike comment hau : done
-//register and log in form: done
-//title lai lowercase ma laijane ani space ma hypen aaunu paryo

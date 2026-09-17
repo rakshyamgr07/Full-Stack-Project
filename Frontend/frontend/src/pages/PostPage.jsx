@@ -19,7 +19,13 @@ const PostPage = () => {
      const dispatch = useDispatch();
      async function fetchPostById() {
           try {
-               const res = await axios.get(`${import.meta.env.VITE_API_URL}/post/${postId}`)
+               const res = await axios.get(`${import.meta.env.VITE_API_URL}/post/${postId}`,
+                    {
+                         headers: {
+                              Authorization: `Bearer ${token}`,
+                         },
+                    }
+               )
                toast.success(res.data.message);
                setPostData(res.data.posts)
                if (res.data.posts.likes.includes(id)) {
@@ -54,7 +60,7 @@ const PostPage = () => {
           if (token) {
                setIsLike((prev) => !prev)
                try {
-                    const res = await axios.post(`${import.meta.env.VITE_API_URL}/post/${postData._id}/like`, {},
+                    const res = await axios.post(`${import.meta.env.VITE_API_URL}/post/likes/${postData._id}`, {},
                          {
                               headers: {
                                    "Authorization": `Bearer ${token}`,
@@ -68,8 +74,13 @@ const PostPage = () => {
                     // console.log(err.response.data.message)
                }
           } else {
-               return toast.error("Please signin for like this post");
+               return toast.error("Please sign in for like this post");
           }
+     };
+
+     const handleComment = (e) => {
+          e.preventDefault();
+          navigate("/comment")
      };
      useEffect(() => {
           // eslint-disable-next-line
@@ -82,45 +93,48 @@ const PostPage = () => {
           // eslint-disable-next-line
      }, [postId])
      return (
-          <>
+          <div className="rounded-lg shadow shadow-black/10 p-4 m-5">
                <article className="lg:col-span-2 rounded-2xl bg-white shadow-sm overflow-hidden">
+                    {/* Author Info */}
+                    <div className="mt-6 flex items-center justify-between border-b pb-6">
 
+                         <div className="flex items-center gap-3">
+                              <img
+                                   src={`https://api.dicebear.com/10.x/initials/svg?seed=${postData.creator?.name}`}
+                                   alt="Author"
+                                   className="h-12 w-12 rounded-full object-cover"
+                              />
+
+                              <div>
+                                   <p className="font-semibold text-gray-900">
+                                        {postData.creator?.name}
+                                   </p>
+                                   <p className="text-sm text-gray-500">
+                                        {formatDate(postData.createdAt)}
+                                   </p>
+                              </div>
+                         </div>
+
+                    </div>
+                    <div className="prose prose-lg m-4 max-w-none text-gray-700 ">
+                         {postData.description}
+                    </div>
                     {/* Featured Image */}
                     <img
                          src={postData.imageUrl}
                          alt={postData.title}
-                         className="h-100 w-full object-cover"
+                         className=" w-full object-fit"
                     />
 
                     <div className="p-6 md:p-10">
 
 
-                         {/* Title */}
+                         {/* Title
                          <h1 className="mt-4 text-3xl font-bold leading-tight text-gray-900 md:text-5xl">
                               {postData.title}
-                         </h1>
+                         </h1> */}
 
-                         {/* Author Info */}
-                         <div className="mt-6 flex items-center justify-between border-b pb-6">
 
-                              <div className="flex items-center gap-3">
-                                   <img
-                                        src={`https://api.dicebear.com/10.x/initials/svg?seed=${postData.creator?.name}`}
-                                        alt="Author"
-                                        className="h-12 w-12 rounded-full object-cover"
-                                   />
-
-                                   <div>
-                                        <p className="font-semibold text-gray-900">
-                                             {postData.creator?.name}
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                             {formatDate(postData.createdAt)}
-                                        </p>
-                                   </div>
-                              </div>
-
-                         </div>
 
                          {/* Actions */}
                          <div className="flex items-center gap-6 border-b py-4 text-gray-600">
@@ -133,18 +147,17 @@ const PostPage = () => {
                                    <span>{likes?.length}</span>
                               </button>
 
-                              <button className="flex items-center gap-2 hover:text-blue-500">
-                                   <FaRegComment />
+                              <button className="flex items-center gap-2 hover:text-blue-500 "
+                                   >
+                                   <FaRegComment onClick={handleComment} />
                                    <span>{comments?.length}</span>
                               </button>
                          </div>
 
                          {/* Content */}
-                         <div className="prose prose-lg mt-8 max-w-none text-gray-700">
-                              {postData.description}
-                         </div>
+
                          {token && email == postData.creator?.email && (
-                              <div className="flex gap-2">
+                              <div className="flex gap-2 py-2 items-start">
                                    <Link to={`/edit-post/${postData.postId}`}>
                                         <Button className="rounded-xl px-6">
                                              <span className="flex items-center gap-2">
@@ -168,7 +181,7 @@ const PostPage = () => {
                     </div>
                </article>
                <Comment />
-          </>
+          </div>
      )
 }
 

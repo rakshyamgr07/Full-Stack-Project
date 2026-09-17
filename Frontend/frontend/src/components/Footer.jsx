@@ -56,7 +56,7 @@ const Footer = () => {
 
             <div className="flex flex-col gap-2">
               <Link
-                to="/add-blog"
+                to="/add-post"
                 className="text-gray-400 hover:text-white"
               >
                 Write
@@ -70,7 +70,7 @@ const Footer = () => {
               </Link>
 
               <Link
-                to="/login"
+                to="/register"
                 className="text-gray-400 hover:text-white"
               >
                 Sign In

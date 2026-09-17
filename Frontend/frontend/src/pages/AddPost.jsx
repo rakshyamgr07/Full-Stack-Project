@@ -160,7 +160,7 @@ const AddPost = () => {
             hover:border-blue-400 transition"
                          >
                               {PostData.image ? (
-                                   <img src={typeof PostData.image == "string" ? PostData.image : URL.createObjectURL(PostData.image)} className="w-full aspect-video object-cover" />
+                                   <img src={typeof PostData.image == "string" ? PostData.image : URL.createObjectURL(PostData.image)} className="w-full aspect-video object-fit" />
                               ) : (
                                    <div className="aspect-video bg-gray-100 flex flex-col justify-center items-center text-gray-500">
                                         <p className="font-medium">

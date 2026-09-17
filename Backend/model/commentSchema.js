@@ -17,6 +17,6 @@ const commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     }]
-})
+},{timestamps:true})
 const Comment = mongoose.model("comment", commentSchema)
 module.exports = Comment
