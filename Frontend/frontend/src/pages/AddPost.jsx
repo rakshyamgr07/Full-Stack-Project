@@ -11,11 +11,11 @@ const AddPost = () => {
      const navigate = useNavigate();
      const { token } = useSelector((slice) => slice.user);
      const { _id: id,
-         title,
+          title,
           description,
-           draft, 
-           imageUrl: image
-         } = useSelector((slice) => slice.post);
+          draft,
+          imageUrl: image
+     } = useSelector((slice) => slice.post);
      const [PostData, setPostData] = useState({
           title: "",
           description: "",
