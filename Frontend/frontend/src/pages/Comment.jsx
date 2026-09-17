@@ -106,7 +106,7 @@ const Comment = () => {
     }
   }
   return (
-    <div className="mt-12 border-t pt-8">
+    <div className="mt-12 border-t pt-8 w-full">
 
       {/* Comment Heading */}
       <h2 className="text-2xl font-bold text-gray-900">

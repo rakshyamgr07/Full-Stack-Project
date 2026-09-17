@@ -91,9 +91,9 @@ function Navbar() {
             className="h-10 w-10 rounded-full object-cover"
           />
 
-          <span className="text-lg capitalize">
+          {/* <span className="text-lg capitalize">
             {name || "user"}
-          </span>
+          </span> */}
 
           <MdKeyboardArrowDown
             className={`text - 2xl transition - transform ${isAccountOpen ? "rotate-180" : ""} `} />
@@ -112,7 +112,7 @@ function Navbar() {
               }
               className="  flex   items-center  gap-3  px-4  py-2.5  hover:bg-gray-100 " >
               <MdEditNote className="text-2xl" />
-              <span>Write</span>
+              <span>Add Post</span>
             </Link>
             {token ? (
 
@@ -207,7 +207,7 @@ function Navbar() {
             }
             className=" flex  items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-100   ">
             <MdEditNote className="text-2xl" />
-            Write
+            Add Post
           </Link>
           {token ? (
             <>

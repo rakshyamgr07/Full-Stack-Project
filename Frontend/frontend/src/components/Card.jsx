@@ -60,7 +60,7 @@ const Card = ({ item }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center ">
 
       <Link
         to={`/post/${item.postId}`}

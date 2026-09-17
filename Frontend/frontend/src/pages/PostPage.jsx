@@ -93,7 +93,8 @@ const PostPage = () => {
           // eslint-disable-next-line
      }, [postId])
      return (
-          <div className="rounded-lg shadow shadow-black/10 p-4 m-5">
+         <div className="flex flex-col items-center justify-center w-50%">
+           <div className=" rounded-lg shadow shadow-black/10 p-4 m-5">
                <article className="lg:col-span-2 rounded-2xl bg-white shadow-sm overflow-hidden">
                     {/* Author Info */}
                     <div className="mt-6 flex items-center justify-between border-b pb-6">
@@ -123,7 +124,7 @@ const PostPage = () => {
                     <img
                          src={postData.imageUrl}
                          alt={postData.title}
-                         className=" w-full object-fit"
+                         className=" w-full object-cover h-[700px]"
                     />
 
                     <div className="p-6 md:p-10">
@@ -182,6 +183,7 @@ const PostPage = () => {
                </article>
                <Comment />
           </div>
+         </div>
      )
 }
 
