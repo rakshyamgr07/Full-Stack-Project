@@ -7,8 +7,11 @@ import Button from '../components/Button'
 const Home = () => {
   const [page, setPage] = useState(1)
   
-  const { posts, hasMore, totalpost } = usePagination("post", {}, 2, page) // 2 means limit in 1 page how many post we want to see
-  console.log(posts, hasMore, totalpost)
+  const { posts, hasMore, totalPost } = usePagination("post", {}, 2, page) // 2 means limit in 1 page how many post we want to see
+  console.log(posts, hasMore, totalPost)
+  console.log("HOME POSTS:", posts);
+console.log("HAS MORE:", hasMore);
+console.log("TOTAL:", totalPost);
   
   return (
     <div className='w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col justify-center items-center gap-6'>

@@ -12,12 +12,15 @@ function usePagination(path, queryParams = {}, limit, page) {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/${path}`, 
           { params: { ...queryParams, limit, page } })
+          console.log("FRONTEND RESPONSE:", res.data);
+console.log("TOTAL POST:", res.data.totalPost);
+console.log("POSTS:", res.data.posts);
 
         //needed old post + new post
         setPosts((prev) => page == 1 ? res.data.posts : [...prev, ...res.data.posts])
         setHasMore(res.data.hasMore)
         setTotalPost(res.data.totalPost)
-        toast.success(res.data.message)
+        // toast.success(res.data.message)
       } catch (error) {
         toast.error(error.response.data.message)
       }
