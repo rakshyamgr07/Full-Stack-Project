@@ -12,7 +12,7 @@ const Home = () => {
   console.log("HOME POSTS:", posts);
 console.log("HAS MORE:", hasMore);
 console.log("TOTAL:", totalPost);
-  
+  console.log("VITE API:", import.meta.env.VITE_API_URL);
   return (
     <div className='w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col justify-center items-center gap-6'>
       <div className='grid  gap-6'>
