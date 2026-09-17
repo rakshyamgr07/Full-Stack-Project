@@ -7,10 +7,11 @@ function usePagination(path, queryParams = {}, limit, page) {
   const [posts, setPosts] = useState([])
   const [totalPost, setTotalPost] = useState(0)
 
-  useEffect(() =>
+  useEffect(() =>{
+        console.log("ETCHING POSTS");
+
     async function fetchSearchPost() {
       try {
-        console.log("🚀 FETCHING POSTS");
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/${path}`, 
           { params: { ...queryParams, limit, page } })
           console.log("FRONTEND RESPONSE:", res.data);
@@ -26,6 +27,7 @@ console.log("✅ RESPONSE RECEIVED", res.data);
       } catch (error) {
         toast.error(error.response.data.message)
       }
+    }
  fetchSearchPost()
           // eslint-disable-next-line react-hooks/exhaustive-deps
     },
