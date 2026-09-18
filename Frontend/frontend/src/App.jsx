@@ -14,6 +14,7 @@ import PostPage from './pages/PostPage'
 import AddPost from './pages/AddPost'
 import SearchPost from './pages/SearchPost'
 import Comment from './pages/Comment'
+import Account from './pages/Account'
 
 function App() {
   const dispatch = useDispatch()
@@ -36,6 +37,8 @@ function App() {
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/edit-post/:postId" element={<AddPost />} />
           <Route path="/comment" element={<Comment/>} />
+          <Route path="/account" element={<Account/>} />
+
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

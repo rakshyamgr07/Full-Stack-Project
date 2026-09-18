@@ -67,7 +67,7 @@ const Card = ({ item }) => {
         className="p-4 bg-white border border-gray-200
         hover:-translate-y-1 transition duration-300
         rounded-lg shadow shadow-black/10
-        w-[700px] flex flex-col"
+        w-full flex flex-col"
       >
 
         {/* User Profile */}

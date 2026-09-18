@@ -267,4 +267,22 @@ async function searchPost(req, res) {
         return handleError(res, error)
     }
 }
-module.exports = { getPost, createPost, getPostById, deletePost, updatePost, likePost, searchPost }
+const getMyPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({
+      creator: req.user.id
+    })
+
+    res.status(200).json({
+      success: true,
+      posts
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+module.exports = { getPost, createPost,getMyPosts, getPostById, deletePost, updatePost, likePost, searchPost }
