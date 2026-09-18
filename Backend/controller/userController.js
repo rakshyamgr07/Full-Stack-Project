@@ -21,8 +21,8 @@ async function getUser(req, res) {
 
 async function createUser(req, res) {
     try {
-        const { name, email, password } = req.body
-        if (!name || !email || !password) {
+        const { name, email, password ,cpassword} = req.body
+        if (!name || !email || !password ||!cpassword) {
             return res.status(200).json({
                 success: true,
                 message: "please insert all fields"
