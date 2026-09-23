@@ -4,10 +4,10 @@ import axios from 'axios'
 import Card from '../components/Card'
 
 const Account = () => {
-     console.log("ACCOUNT PAGE LOADED")
+  console.log("ACCOUNT PAGE LOADED")
   const { token, name } = useSelector((state) => state.user)
   const [posts, setPosts] = useState([])
-console.log("TOKEN:", token)
+  console.log("TOKEN:", token)
   useEffect(() => {
     const getMyPosts = async () => {
       try {

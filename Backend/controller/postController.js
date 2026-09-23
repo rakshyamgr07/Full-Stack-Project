@@ -279,10 +279,7 @@ const getMyPosts = async (req, res) => {
     })
 
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    })
+        return handleError(res, error)
   }
 }
 module.exports = { getPost, createPost,getMyPosts, getPostById, deletePost, updatePost, likePost, searchPost }
