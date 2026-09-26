@@ -39,7 +39,7 @@ function Register() {
     <div className='flex flex-col justify-center items-center min-h-screen  '>
       < div className="flex flex-col  shadow-xl m-2 p-2 rounded-lg mt-23 ">
         <div className='2'>
-        <h1 className='text-green-700 text-2xl font-bold text-center text-3xl'>Register</h1>
+        <h1 className='text-blue-700 text-2xl font-bold text-center text-3xl'>Register</h1>
 
       </div>
       <div className='flex flex-col gap-2 min-h-full  m-2 p-4 rounded-sm  w-sm'>
