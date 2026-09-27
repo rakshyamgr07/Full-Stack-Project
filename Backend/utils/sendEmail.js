@@ -2,7 +2,7 @@ const { transporter } = require("./transporter")
 
 async function sendVerificationEmail(to,token){
   const mailOptions = {
-    from:process.env.EMAIL_USER,
+    from:process.env.SMTP_USER,
     to,
     subject :"Email Verification",
     text:"Please Verify your email",
@@ -14,7 +14,7 @@ async function sendVerificationEmail(to,token){
 
 async function sendResetPasswordEmail(to,token){
   const mailOptions = {
-    from:process.env.EMAIL_USER,
+    from:process.env.SMTP_USER,
     to,
     subject :"Reset Password",
     text:"Reset Your  password",

@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdEditNote, MdSearch, MdMenu, MdClose, MdAccountCircle, MdKeyboardArrowDown, } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../utils/userSlice";
+import toast from "react-hot-toast";
+import axios from "axios";
 function Navbar() {
   const { token, name, id } = useSelector((state) => state.user)
   console.log("Navbar user:", { token, name, id })

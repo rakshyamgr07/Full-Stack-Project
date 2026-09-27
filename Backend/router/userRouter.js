@@ -6,7 +6,7 @@ const route = express.Router()
 
 
 route.get("/", getUser)
-route.post("/", createUser)
+route.post("/register", createUser)
 route.post("/login", userLogin)
 
 route.get("/verify-email/:verificationToken", verifyToken)
